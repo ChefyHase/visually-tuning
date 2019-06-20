@@ -1,7 +1,13 @@
 <template lang="pug">
-section.hero.is-info.is-fullheight
+section.hero.is-fullheight
   .hero-head
-    nav
+    nav.navbar
+      .container
+        .navbar-brand
+        .navbar-menu
+          .navbar-end
+            a.navbar-item About
+            a.navbar-item API
   .hero-body
     .container
       div(v-if="!$store.state.fileSetted").file.is-boxed
@@ -9,10 +15,9 @@ section.hero.is-info.is-fullheight
           input(type="file" name="file" @change="showFileName")#file.file-input
           span.file-cta
             span.file-label Choose a file…
-      p(v-else).has-text-centered {{ $store.state.fileName }}
-      a(@click="upload" v-if="!$store.state.isProgress").button.is-link.is-center upload
-      progress(v-else).progress.is-danger.is-large
-      p.has-text-centered {{ $store.state.res }}
+      p(v-else).has-text-centered.is-size-1 {{ $store.state.fileName }}
+      progress(v-if="$store.state.isProgress").progress.is-danger.is-large
+      p.has-text-centered.is-size-1 {{ $store.state.res }}
 </template>
 
 <script>
@@ -24,6 +29,8 @@ export default {
       const fileSelectDom = document.getElementById('file').files[0]
       this.$store.commit('updateFileName', fileSelectDom)
       this.$store.commit('fileSetToggle')
+
+      this.upload()
     },
     upload: async function() {
       const fileSelectDom = this.$store.getters.getFiledom
@@ -48,10 +55,4 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.is-center {
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-}
-</style>
+<style src="./style.scss" lang="scss"></style>
