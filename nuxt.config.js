@@ -1,3 +1,6 @@
+const environment = process.env.NODE_ENV || 'development'
+const envSet = require(`./env.${environment}.js`)
+
 module.exports = {
   mode: 'spa',
   /*
@@ -69,5 +72,6 @@ module.exports = {
      */
     extend(config, ctx) {}
   },
-  serverMiddleware: ['~/server/api/index.js']
+  serverMiddleware: ['~/server/api/index.js'],
+  env: envSet
 }

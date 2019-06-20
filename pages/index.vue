@@ -43,7 +43,7 @@ export default {
 
         params.append('file', fileSelectDom)
         const res = await axios.post(
-          'http://localhost:3000/api/genshiChouritsu',
+          process.env.HOST + '/api/genshiChouritsu',
           params
         )
 
