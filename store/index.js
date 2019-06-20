@@ -3,7 +3,8 @@ export const state = () => ({
   isProgress: false,
   fileName: null,
   fileSetted: false,
-  fileDom: null
+  fileDom: null,
+  isShowUploadButton: false
 })
 
 export const getters = {
@@ -18,6 +19,7 @@ export const mutations = {
   },
   toggleProgress(state) {
     state.isProgress = !state.isProgress
+    state.isShowUploadButton = false
   },
   fileSetToggle(state) {
     state.fileSetted = !state.fileSetted
@@ -25,5 +27,6 @@ export const mutations = {
   updateFileName(state, dom) {
     state.fileName = dom.name
     state.fileDom = dom
+    state.isShowUploadButton = true
   }
 }
