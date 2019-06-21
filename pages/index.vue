@@ -22,6 +22,10 @@ section.hero.is-fullheight
   div#modal.modal
     .modal-background
     .modal-content
+      .container
+        .notification
+          h1.is-size-2 Call API using curl
+          code curl -X POST https://visually-tuning.herokuapp.com/api/genshiChouritsu -F "file=@/file/to/sample.wav"
     button(@click="toggleModal").modal-close.is-large
 </template>
 
