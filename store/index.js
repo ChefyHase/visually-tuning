@@ -28,9 +28,9 @@ export const mutations = {
   fileSetToggle(state) {
     state.fileSetted = !state.fileSetted
   },
-  updateFileName(state, dom) {
-    state.fileName = dom.name
-    state.fileDom = dom
+  updateFileName(state, doms) {
+    state.fileName = Object.keys(doms).map(key => doms[key].name)
+    state.fileDom = doms
     state.isShowUploadButton = true
   },
   toggleIsModalOpen(state) {
