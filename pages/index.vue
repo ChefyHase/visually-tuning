@@ -10,14 +10,14 @@ section.hero.is-fullheight
             a.navbar-item API
   .hero-body
     .container
+      p.has-text-centered.is-size-1 {{ $store.state.fileName }}
+      progress(v-if="$store.state.isProgress").progress.is-danger.is-large
+      p(v-else).has-text-centered.is-size-1 {{ $store.state.res }}
       div(v-if="!$store.state.fileSetted").file.is-boxed
         label.file-label.is-center
           input(type="file" name="file" @change="showFileName")#file.file-input
           span.file-cta
             span.file-label Choose a file…
-      p(v-else).has-text-centered.is-size-1 {{ $store.state.fileName }}
-      progress(v-if="$store.state.isProgress").progress.is-danger.is-large
-      p.has-text-centered.is-size-1 {{ $store.state.res }}
 </template>
 
 <script>
@@ -38,6 +38,7 @@ export default {
 
       if (!fileSelectDom || fileSelectDom.type !== 'audio/wav') {
         this.$store.commit('upload', 'invaild')
+        this.$store.commit('fileSetToggle')
       } else {
         this.$store.commit('toggleProgress')
 
@@ -49,6 +50,7 @@ export default {
 
         this.$store.commit('toggleProgress')
         this.$store.commit('upload', res.data.msg)
+        this.$store.commit('fileSetToggle')
       }
     }
   }
