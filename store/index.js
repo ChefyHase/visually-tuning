@@ -4,12 +4,16 @@ export const state = () => ({
   fileName: null,
   fileSetted: false,
   fileDom: null,
-  isShowUploadButton: false
+  isShowUploadButton: false,
+  isModalOpen: false
 })
 
 export const getters = {
   getFiledom(state) {
     return state.fileDom
+  },
+  isModalOpen(state) {
+    return state.isModalOpen
   }
 }
 
@@ -28,5 +32,8 @@ export const mutations = {
     state.fileName = dom.name
     state.fileDom = dom
     state.isShowUploadButton = true
+  },
+  toggleIsModalOpen(state) {
+    state.isModalOpen = !state.isModalOpen
   }
 }
