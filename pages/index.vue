@@ -1,6 +1,6 @@
 <template lang="pug">
 section.hero.is-fullheight
-  .hero-head
+  div(@dragover.prevent @dragleave.prevent @drop.prevent).hero-head
     nav.navbar
       .container
         .navbar-brand
@@ -8,16 +8,17 @@ section.hero.is-fullheight
           .navbar-end
             a.navbar-item About
             a(@click="toggleModal").navbar-item API
-  .hero-body
+  div(@dragover.prevent @dragleave.prevent @drop.prevent="drop").hero-body
     .container
       p.has-text-centered.is-size-1 {{ $store.state.fileName }}
       progress(v-if="$store.state.isProgress").progress.is-danger.is-large
       p(v-else).has-text-centered.is-size-1 {{ $store.state.res }}
+
       div(v-if="!$store.state.fileSetted").file.is-boxed
         label.file-label.is-center
           input(type="file" name="file" @change="showFileName")#file.file-input
           span.file-cta
-            span.file-label Choose a file…
+            span.file-label Choose a file or Drug & Drop
 
   div#modal.modal
     .modal-background
@@ -71,6 +72,12 @@ export default {
         modal.classList.add('is-active')
         this.$store.commit('toggleIsModalOpen')
       }
+    },
+    drop: function(event) {
+      const fileInput = document.getElementById('file')
+      const files = event.dataTransfer.files
+      fileInput.files = files
+      this.showFileName()
     }
   }
 }
