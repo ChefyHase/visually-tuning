@@ -7,7 +7,7 @@ section.hero.is-fullheight
         .navbar-menu
           .navbar-end
             a.navbar-item About
-            a.navbar-item API
+            a(@click="toggleModal").navbar-item API
   .hero-body
     .container
       p.has-text-centered.is-size-1 {{ $store.state.fileName }}
@@ -18,6 +18,11 @@ section.hero.is-fullheight
           input(type="file" name="file" @change="showFileName")#file.file-input
           span.file-cta
             span.file-label Choose a file…
+
+  div#modal.modal
+    .modal-background
+    .modal-content
+    button(@click="toggleModal").modal-close.is-large
 </template>
 
 <script>
@@ -51,6 +56,16 @@ export default {
         this.$store.commit('toggleProgress')
         this.$store.commit('upload', res.data.msg)
         this.$store.commit('fileSetToggle')
+      }
+    },
+    toggleModal: function() {
+      const modal = document.getElementById('modal')
+      if (this.$store.getters.isModalOpen) {
+        modal.classList.remove('is-active')
+        this.$store.commit('toggleIsModalOpen')
+      } else {
+        modal.classList.add('is-active')
+        this.$store.commit('toggleIsModalOpen')
       }
     }
   }
